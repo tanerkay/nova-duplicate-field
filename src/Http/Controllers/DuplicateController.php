@@ -4,6 +4,7 @@ namespace Jackabox\DuplicateField\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Str;
 
 class DuplicateController extends Controller
 {
@@ -19,7 +20,7 @@ class DuplicateController extends Controller
             return [
                 'status' => 404,
                 'message' => 'No model found.',
-                'destination' => config('nova.url') . config('nova.path') . '/resources/' . $request->resource . '/'
+                'destination' => config('nova.url') . config('nova.path') . '/resources/' . Str::plural($request->resource) . '/'
             ];
         }
 
@@ -54,7 +55,7 @@ class DuplicateController extends Controller
         return [
             'status' => 200,
             'message' => 'Done',
-            'destination' => url(config('nova.path') . '/resources/' . $request->resource . '/' . $newModel->id)
+            'destination' => url(config('nova.path') . '/resources/' . Str::plural($request->resource) . '/' . $newModel->id)
         ];
     }
 }
